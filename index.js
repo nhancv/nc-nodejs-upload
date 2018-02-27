@@ -11,6 +11,10 @@ if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir)
 }
 app.use(express.static(uploadDir))
+app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname, 'index.html'))
+})
+
 app.post('/', function (req, res) {
     try {
         var form = new formidable.IncomingForm()
@@ -30,3 +34,18 @@ app.post('/', function (req, res) {
 
 app.listen(port)
 
+function cleanUploadFolder(timeOut) {
+    setTimeout(() => {
+        var isEmpty = true
+        if (fs.existsSync(uploadDir)) {
+            fs.readdirSync(uploadDir).forEach(function (file, index) {
+                var curPath = `${uploadDir}/${file}`
+                fs.unlinkSync(curPath)
+            })
+        }
+        console.log('Clean upload folder.')
+        cleanUploadFolder(86400)
+    }, timeOut)
+}
+
+cleanUploadFolder(0)
