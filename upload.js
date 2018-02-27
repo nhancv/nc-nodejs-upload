@@ -3,7 +3,7 @@ const fs = require('fs')
 const path = require('path')
 
 var formData = {
-  file: fs.createReadStream(path.join(__dirname, 'manifest.plist'))
+  file: fs.createReadStream(path.join(__dirname, 'LICENSE'))
 }
 request.post({url:'https://ncjsupload.herokuapp.com/', formData: formData}, function optionalCallback(err, httpResponse, body) {
   if (err) {
