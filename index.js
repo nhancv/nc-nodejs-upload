@@ -44,7 +44,7 @@ function cleanUploadFolder(timeOut) {
             })
         }
         console.log('Clean upload folder.')
-        cleanUploadFolder(86400)
+        cleanUploadFolder(86400000)
     }, timeOut)
 }
 
